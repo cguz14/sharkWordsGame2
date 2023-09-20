@@ -51,6 +51,10 @@ const isLetterInWord = (letter) => document.querySelector(`div.${letter}`) !== n
 //
 const handleCorrectGuess = (letter) => {
   // Replace this with your code
+  const letterDivs = document.querySelectorAll(`.${letter}`);
+  for (const divs of letterDivs){
+    divs.innerText = `${letter}`;
+  }
 };
 
 //
@@ -61,8 +65,11 @@ const handleCorrectGuess = (letter) => {
 // all buttons and show the "play again" message.
 
 const handleWrongGuess = () => {
+  
   numWrong += 1;
-  // Replace this with your code
+  if (numWrong > 5) {
+    // need to fill rest of function
+  }
 };
 
 //  Reset game state. Called before restarting the game.
@@ -82,6 +89,17 @@ const resetGame = () => {
   for (const button of document.querySelectorAll('button')) {
     // add an event handler to handle clicking on a letter button
     // YOUR CODE HERE
+    
+    button.addEventListener('click', () => {
+      const letter = button.innerHTML;
+      disableLetterButton(button);
+      if (isLetterInWord(letter)) {
+        handleCorrectGuess(letter);
+      }
+      else {
+        handleWrongGuess();
+      }
+    });
   }
 
   // add an event handler to handle clicking on the Play Again button
